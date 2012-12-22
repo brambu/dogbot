@@ -217,8 +217,9 @@ class DogBot(object):
           self.kickrejoin(nick, victim, recip)
         if action == 'INVITE':
           if recip == self.currentnick:
-            channel = msg
-            self.invitejoin(nick, channel)
+            if nick in self.configdict['admins']:
+              channel = msg
+              self.invitejoin(nick, channel)
         
   def privmsgparse(self, nick, ident, host, recip, msg):
     if '#' in recip:
