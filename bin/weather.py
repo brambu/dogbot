@@ -26,7 +26,7 @@ def print_result(result):
         windspeedkm = result['wind']['speed']
         printthis = "{0} Currently {1} {2}F/{3}C  "+\
                     "Forecast: {4} (High {5}F/{6}C - Low {7}F/{8}C) "+\
-                    "Wind: chill {9}F/{10}C speed {11}mph/{12}km/h"
+                    "Wind: chill {9}F/{10}C speed {11}mph/{12}kmh"
         printthis = printthis.format(title, text, ctof(tempc), tempc,
                                      forecast, ctof(high), high, ctof(low), low,
                                      ctof(windchillc), windchillc, kmhtomph(windspeedkm), int(float(windspeedkm)))
