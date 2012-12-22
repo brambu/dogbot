@@ -7,6 +7,8 @@ import sys
 import logging
 import random
 import feedparser
+import urllib2
+from HTMLParser import HTMLParser
 
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(message)s')
 log = logging.getLogger(__name__)
@@ -24,13 +26,14 @@ def gift_fetch(url):
   return entry
 
 def print_entry(entry):
+  h = HTMLParser()
   try:
     link = entry.id
     title = entry.title
   except:
     log.error('cannot parse entry %s' % (entry))
     return
-  print entry.title, entry.id
+  print entry.title, h.unescape(entry.summary), entry.id
   
 def main():
   
