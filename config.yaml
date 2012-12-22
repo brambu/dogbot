@@ -1,0 +1,23 @@
+admins:
+- dog
+channels:
+  '#dogtest':
+     key: ""
+host: host.net
+ident: dogtester
+nick: dogtester
+altnick: evildogtester
+owner: dog
+port: 6667
+realname: dogtester
+cmds:
+  chan:
+    date:
+      cmd: /bin/date
+      help: 'execute date on server'
+      acl: False
+  priv:
+    uptime:
+      cmd: /usr/bin/uptime
+      help: 'execute uptime on server'
+      acl: True
