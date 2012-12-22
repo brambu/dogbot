@@ -65,9 +65,6 @@ class DogBot(object):
     if not helpquery:  
       helpprompt = [ '', 'Type "help nameofcommand" in order to', \
                      'display the help for that command', \
-                     'for example type "help jira" without', \
-                     'quotes, and %s will provide instructions ', \
-                     'on how to use that command...', \
                      '', 'Available commands are:', '' ]
       for line in helpprompt:
         out.append(" *  %s" % (line))
@@ -75,22 +72,20 @@ class DogBot(object):
       cmdprompt.append('In channel commands:')
       for group in [chancmds[i:i+4] for i in range(0, len(chancmds), 4)]:
         cmdprompt.append(', '.join(group))
-      cmdprompt.append('')
       cmdprompt.append('Private message only commands:')
       for group in [privcmds[i:i+4] for i in range(0, len(privcmds), 4)]:
         cmdprompt.append(', '.join(group))
-      cmdprompt.append('')
       for line in cmdprompt:
         out.append(" *  %s" % (line))
     else:
       if helpquery in chancmds:
         helpprompt = [ '', 'Help for in-channel command: %s' % (helpquery), \
-                       '', cmddict['chan'][helpquery]['help'], '' ]
+                       cmddict['chan'][helpquery]['help'], '' ]
         for line in helpprompt:
           out.append(" *  %s" % (line))
       elif helpquery in privcmds:
         helpprompt = [ '', 'Help for private msg command: %s' % (helpquery), \
-                       '', cmddict['priv'][helpquery]['help'], '' ]
+                       cmddict['priv'][helpquery]['help'], '' ]
         for line in helpprompt:
           out.append(" *  %s" % (line))
       else:
