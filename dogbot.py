@@ -60,12 +60,11 @@ class DogBot(object):
     cmddict  = self.configdict['cmds']
     chancmds = cmddict['chan'].keys()
     privcmds = cmddict['priv'].keys()
-    out.append(" *  ")
     out.append(" *  %s help:" % (src))
     if not helpquery:  
-      helpprompt = [ '', 'Type "help nameofcommand" in order to', \
+      helpprompt = [ 'Type "help nameofcommand" in order to', \
                      'display the help for that command', \
-                     '', 'Available commands are:', '' ]
+                     '', 'Available commands are:']
       for line in helpprompt:
         out.append(" *  %s" % (line))
       cmdprompt = []

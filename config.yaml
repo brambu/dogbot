@@ -12,12 +12,12 @@ port: 6667
 realname: dogtester
 cmds:
   chan:
-    date:
-      cmd: /bin/date
-      help: 'execute date on server'
+    weather:
+      cmd: /opt/dogbot/bin/weather.py -z 
+      help: 'weather by zipcode (Ex. weather 90210)'
       acl: False
   priv:
     uptime:
       cmd: /usr/bin/uptime
-      help: 'execute uptime on server'
+      help: 'Execute uptime on server (admins only)'
       acl: True
