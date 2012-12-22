@@ -60,7 +60,7 @@ def main():
   parser = ArgumentParser(description='fetch last item from woot feed')
   parser.add_argument('-v', '--verbose', action='store_true', default=False, help='Be verbose.')
   parser.add_argument('-u', '--url', default=default_url, help='specify url other than {0}'.format(default_url))
-  parser.add_argument('-k', '--key', default='www', help='search for tech / sport / home / etc')
+  parser.add_argument('key', default='www', nargs='?', help='search for tech / sport / home / etc')
   args = parser.parse_args()
   
   verbose = args.verbose
