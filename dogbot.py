@@ -243,7 +243,9 @@ class DogBot(object):
     return
   
   def kickrejoin(self, kicker, victim, channel):
+    self.log.info("kick detected {0} {1} {2}".format(kicker, victim, channel))
     if not victim == self.currentnick:
+      self.log.info("{0} is not {1}".format(victim, self.currentnick))
       return
     self.log.info("%s kicked %s from %s" % (kicker, self.currentnick, channel))
     channelkey = ""

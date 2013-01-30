@@ -3,7 +3,7 @@ admins:
 channels:
   '#dogtest':
      key: ""
-host: host.net
+host: host.net 
 ident: dogtester
 nick: dogtester
 altnick: evildogtester
