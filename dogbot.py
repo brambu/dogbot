@@ -294,14 +294,14 @@ class DogBot(object):
     threadlimit = 25
     if len(self.runthreads) > threadlimit:
       self.runthreads = [thread for thread in self.runthreads if thread.is_alive()]
-      self.log.info(self.runthreads)
       if len(self.runthreads) > threadlimit:
-        self.log.warn("Dropping cmd %s from %s due to too many alive threads." % (cmd, sender))
-      sendto = sender
-      if cmdtype=='chan':
-        sendto = recip
-      out = ['I feel like throwing up... :( ..Try again later.']
-      self.saythis(out, self.currentnick, sendto)
+        log.warn("Dropping cmd %s from %s due to too many alive threads." % (cmd, sender))
+        sendto = sender
+        if cmdtype=='chan':
+          sendto = recip
+        out = ['I feel like throwing up... :( ..Try again later.']
+        self.saythis(out, self.currentnick, sendto)
+        return
     else:
       t = Thread(target=self._run_cmd_tjob, args=(cmd, args, sender, recip, cmdtype, ))
       t.start()
