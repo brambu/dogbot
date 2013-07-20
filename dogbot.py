@@ -29,6 +29,7 @@ class DogBot(object):
     self.altnickcounter = 0
     self.lastnickchange = time()
     self.currentnick = None
+    self.lineregex = None
     self.log = self.initlog()
   
   def initlog(self):
@@ -125,6 +126,7 @@ class DogBot(object):
     ti = Thread(target = self.inloop)
     to = Thread(target = self.outloop)
     for t in [ti,to,tr]:
+      t.daemon = True
       t.start()
       threads.append(t)
     for thread in threads:
@@ -137,8 +139,9 @@ class DogBot(object):
         if self.verbose:
           self.log.info(line)
         self.lineparse(line)
-      except:
-        pass
+      except Exception, e:
+        self.log.fatal(e)
+        os._exit(1)
 
   def inloop(self):
     while True:
@@ -147,7 +150,8 @@ class DogBot(object):
         for line in lines.split('\r\n'):
           if not line=='':
             self.inq.put(line)
-      except:
+      except Exception, e:
+        self.log.error(e)
         pass
   
   def outloop(self):
@@ -155,12 +159,15 @@ class DogBot(object):
       try:
         i = self.outq.get()
         self.s.send(i)
-      except:
+      except Exception, e:
+        self.log.error(e)
         pass
   
   def lineparse(self, line):
-    regex = r'(?:^:([^\s]+)\s([^\s]+)\s([^\s]+)\s([^:\s]+)?\s?:(.*))|(?:^(\w+))'
-    matches = re.findall(regex, line)
+    if not self.lineregex:
+      regex = r'(?:^:([^\s]+)\s([^\s]+)\s([^\s]+)\s([^:\s]+)?\s?:(.*))|(?:^(\w+))'
+      self.lineregex = re.compile(regex)
+    matches = self.lineregex.findall(line)
     if len(matches) > 0:
       match = matches[0]
       if len(match) > 5:
@@ -304,6 +311,7 @@ class DogBot(object):
         return
     else:
       t = Thread(target=self._run_cmd_tjob, args=(cmd, args, sender, recip, cmdtype, ))
+      t.daemon = True
       t.start()
       self.runthreads.append(t)
     
