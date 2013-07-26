@@ -247,7 +247,8 @@ class DogBot(object):
                     cmd = completecmd[0].split()[0].strip()
                     args = completecmd[0].split()[1::]
                     self.run_cmd(cmd, args, nick, recip, 'chan')
-                except:
+                except Exception, e:
+                    self.log.error(e)
                     pass
         return
     
@@ -301,8 +302,8 @@ class DogBot(object):
     
     def run_cmd(self, cmd, args, sender, recip, cmdtype):
         self.runthreads = [thread for thread in self.runthreads if thread.is_alive()]
-        if len(self.runthreads) > threadlimit:
-            if len(self.runthreads) > threadlimit:
+        if len(self.runthreads) > self.threadlimit:
+            if len(self.runthreads) > self.threadlimit:
                 log.warn("Dropping cmd %s from %s due to too many alive threads." % (cmd, sender))
                 sendto = sender
                 if cmdtype=='chan':
